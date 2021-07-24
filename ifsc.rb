@@ -12,6 +12,10 @@ uri = URI(ifsc_link)
 response = Net::HTTP.get_response(uri)
 status = response.code
 
-details = JSON.parse(response.body)
-puts "Your Bank name is " + details["BANK"]
-puts "Your Bank Branch name is " + details["BRANCH"]
+if status.to_i == 404
+  puts "Invalid IFSC Code! Please re-enter correct one"
+else
+  details = JSON.parse(response.body)
+  puts "Your Bank name is " + details["BANK"]
+  puts "Your Bank Branch name is " + details["BRANCH"]
+end
